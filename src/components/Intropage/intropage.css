@@ -1,0 +1,40 @@
+.intro-container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+.intro-text {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  color: white;
+  font-size: 3rem;
+}
+.background {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  background-image: url("../../images/background.jpg");
+  /* height: 100%;  */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+h3 {
+  margin-left: 2em;
+  margin-top: .3em;
+}
+h4 {
+  margin-top: -1em;
+  margin-left: 3.5em;
+}
+.ban{
+    margin-left: .5em;
+    margin-top: -.3em;
+}
+.addr{
+    font-size: 2rem;
+}

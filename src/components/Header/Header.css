@@ -1,0 +1,39 @@
+.header-container {
+  display: flex;
+  justify-content: space-around;
+  color: #82440b;
+}
+
+/* NAVIGATION */
+nav {
+  width: 100%;
+  margin: 0 auto;
+  /* background: #fff; */
+  /* padding: 50px 0; */
+  /* box-shadow: 0px 5px 0px #dedede; */
+}
+nav ul {
+  list-style: none;
+  text-align: center;
+}
+nav ul li {
+  display: inline-block;
+}
+nav ul li .link {
+  display: block;
+  padding: 20px;
+  font-size: 1.5em;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0 1em;
+}
+nav ul li .link,
+nav ul li .link:after,
+nav ul li .link:before {
+  transition: all .3s;
+}
+nav ul li .link:hover {
+  color: #d4ba66;
+}

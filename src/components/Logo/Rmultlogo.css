@@ -1,0 +1,28 @@
+.logo-container {
+  display: grid;
+  grid-template-columns: 0.3fr 1fr;
+  grid-template-rows: 1fr;
+  background-color: #82440b;
+}
+.logo1{
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+.nameuniversity{
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+.logo1 img {
+    justify-items: center;
+    margin-left: 2em;
+    justify-content: flex-end;
+    padding: 10px;
+    height: 80px;
+    width: 3vw;
+  }
+  .nameuniversity {
+    color: white;
+    /* text-align: center; */
+    padding-top: 1.5em;
+    font-size: 1.5em;
+  }
