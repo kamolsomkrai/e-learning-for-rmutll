@@ -1,152 +1,62 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Mainpage.css";
+import { db } from "../../firebase";
 // import { Link } from "react-router-dom";
 // import youtube from '../youtube/youtube.js'
-export default function Mainpage() {
-  const sidemenulist = [
-    {
-      topic: [
-        { name: "การวิเคราะห์ดินและหาแร่ธาตุในดิน", subtopic: [] },
-        {
-          name: "การเพาะพันธุ์ข้าว การปลูกข้าวบนแปลงข้าวไร้นา",
-          subtopic: [
-            { name: "ปลูกข้าวในบ่อซีเมนต์" },
-            { name: "ปลูกข้าวในถุงพลาสติกดำ" },
-            { name: "ปลูกข้าวในยางรถยนต์" },
-          ],
-        },
-        {
-          name: "การบริหารจัดการกลุ่ม",
-          subtopic: [
-            { name: "ปลูกข้าวในบ่อซีเมนต์" },
-            { name: "ปลูกข้าวในถุงพลาสติกดำ" },
-          ],
-        },
-        {
-          name: "การจัดการหลังการเก็บเกี่ยว การวางแผนการปลูกข้าวนอกฤดู",
-          subtopic: [],
-        },
-      ],
-    },
-  ];
-  const datarice = {
-    head: "การเพาะพันธุ์ข้าว ปลูกบนแปลงข้าวไร้นา",
-    data: [
-      {
-        name: "ปลูกข้าวในบ่อซีเมนต์",
-        credit: "เว็บไซต์ : http://www.monmai.com/ปลูกข้าวในบ่อซีเมนต์/",
-        subdata: [
-          {
-            name: "การเตรียมต้นกล้าเพื่อปลูก",
-            data:
-              "โดยการแช่เมล็ดพันธุ์ในน้ำ 1 คืน แล้วนำไปบ่มในกระสอบ 1 คืนแล้วนำเมล็ดข้าวที่บ่มแล้วประมาณ 2 กำมือ ไปหว่านในบ่อซีเมนต์ 1 วงที่เตรียมดินและแช่น้ำมาอย่างน้อย 2 วัน หลังหว่านไปประมาณ 4 วันเมล็ดข้าวจะเริ่มแตกใบ ให้ดูแลอย่าให้ขาดน้ำ จนต้นกล้าอายุได้ 20-25 วัน จึงถอนไปปักดำได้",
-            video: "",
-          },
-          {
-            name: "การเตรียมวัสดุอุปกรณ์",
-            data:
-              "เตรียมวงปูน ขนาด 50 เซนติเมตร ลึก 50 เซนติเมตรหรือขนาดใหญ่กว่านี้ เช่น 80 เซนติเมตร หรือ 1 เมตรตามงบประมาณและพื้นที่ ทำการฉาบก้นให้เรียบอย่าให้รั่วควรผสมปูนกับน้ำยากันซึม เพื่อป้องกันการรั่วซึม",
-            video: "",
-          },
-          {
-            name: "การเตรียมดิน",
-            data:
-              "ใส่ดินลงไปในบ่อให้มีความสูงขนาด 40 เซนติเมตร นำดิน 1 กิโลกรัม ผสมกับปุ๋ยหมัก 1 กิโลกรัม เทลงไปบนหน้าดินแล้วใส่น้ำให้เต็มบ่อ แช่ดินไว้เพื่อกำจัดวัชพืช 15 วัน",
-            video: "",
-          },
-          {
-            name: "การปักดำและใส่ปุ๋ย",
-            data:
-              "เมื่อครบกำหนด 15 วัน ให้ทำการใส่ปุ๋ยคอกแล้วนำข้าวมาปักต้นกล้า โดยปักบ่อละประมาณ 7-10 กอตามขนาดวงบ่อเล็กหรือใหญ่ กอละประมาณ 3-4 ต้นถ้ามากกว่านี้จะทำให้แน่นไป หลังจากปักดำครบ 15 วัน ให้ใส่น้ำเต็มบ่อเพื่อให้มีความชุ่มชื้น 60% และใส่ปุ๋ยคอกลงไป 1 กก./บ่อ ใส่ 15วันต่อครั้ง",
-            video: "",
-          },
-          {
-            name: "การดูแลป้องกัน",
-            data:
-              "เมื่อต้นข้าวสูง 50-60 เซนติเมตร ข้าวจะสมบูรณ์อยู่ในช่วงข้าวตั้งท้อง หากมีใบเหลืองให้ใส่ปุ๋ยคอก 3 ขีดต่อ 1 บ่อตามด้วยการฉีดน้ำหมัก พด.2 บำรุงข้าว และ พด.7 เพื่อป้องกันแมลงโดยเบื้องต้นการป้องกันแมลงให้นำมะกรูดมาผ่าเป็นซีกแล้วนำไปลอยน้ำในบ่อไว้ เพื่อป้องกันการเข้าทำลายของหนอน แมลง",
-            video: "",
-          },
-          {
-            name: "การเก็บเกี่ยว",
-            data:
-              "ในการเก็บผลผลิตข้าวให้เก็บรวงข้าวโดยการเด็ดชุดแรกตรงป้องแรกของรวงข้าว ต่อ 1ต้นสามารถเก็บได้ 3 รอบโดยให้เก็บผลผลิตเมื่อข้าวเริ่มมีการตั้งท้องในปล้องที่สองของต้นข้าวหลังจากเก็บเกี่ยวรุ่นที่สามแล้วให้ทำการกดต้นข้าวฝังลงไปในดินในบ่อเหมือนการไถกลบตอซังข้าวและปล่อยน้ำเข้าบ่อให้ท่วมพอดีเป็นการปรับปรุงบำรุง ดินเพื่อเตรียมบ่อลงปลูกรอบต่อไป",
-            video: "dFAd_-aQD0s",
-          },
-          {
-            name: "ผลผลิต",
-            data:
-              "ผลผลิตใน 1 บ่อต่อรอบ ที่เก็บจะได้ข้าวเปลือกบ่อละประมาณ 1.8-2 กิโลกรัม หากสีเป็นข้าวสารแล้วก็จะอยู่ประมาณ 1-1.5 กิโลกรัมหาดปลูก 30 บ่อ ก็จะได้ประมาณ 30-40 กิโลกรัม 1 ปี ปลูก 3 รอบก็จะได้ 90-120 กิโลกรัม โดยประมาณ",
-            video: "",
-          },
-        ],
-      },
-      {
-        name: "ปลูกข้าวในถุงพลาสติกดำ",
-        credit: "เว็บไซต์ : http://www.monmai.com/ปลูกข้าวในบ่อซีเมนต์/",
-        subdata: [
-          {
-            name: "การเตรียมวัสดุอุปกรณ์",
-            data:
-              "เมล็ดพันธุ์ข้าวพันธุ์ดี จอบ พลั่ว เสียม ถุงพลาสติกดำพับข้างขนาด 9x8 นิ้ว ดินร่วนซุย ขุยมะพร้าว แกลบหรือฟางข้าวแห้งปุ๋ยอินทรีย์เม็ด ได้แก่ สูตรรองพื้น สูตรบำรุงต้นและใบสูตรบำรุงเมล็ดข้าว อาหารเสริมพืช ปุ๋ยคอกแห้ง เช่น มูลวัว มูลควายหรือจัดหาแหล่งน้ำให้พร้อม",
-            video: "dFAd_-aQD0s",
-          },
-          {
-            name: "การเตรียมเมล็ดพันธุ์ข้าว",
-            data:
-              "นำเมล็ดพันธุ์ข้าวไปแช่ในอาหารเสริมพืชที่มีส่วนผสมของน้ำ 1 ลิตร กับอาหารเสริมพืช 4 ซีซี แช่ไว้ 1 คืน แล้วนำมาบ่ม 2 คืนเพื่อช่วยให้เมล็ดพันธุ์ข้าวมีอัตราการงอกเพิ่มและต้านทานโรค",
-            video: "",
-          },
-          {
-            name: "การเตรียมดิน",
-            data:
-              "นำดินร่วนซุย 98% ปุ๋ยคอก 1% ปุ๋ยอินทรีย์เม็ด 0.5%และขุยมะพร้าว 0.5% ใส่ภาชนะผสมคลุกเคล้าให้เข้ากันนำอาหารเสริมพืชที่มีส่วนผสมของน้ำ 1 ลิตร กับอาหารเสริมพืช 1 ซีซีเทใส่ลงบนวัสดุปลูกแล้วคลุกเคล้าให้เข้ากันจากนั้นตักวัสดุปลูกใส่ในถุงพลาสติกดำ 18 กิโลกรัม ต่อถุงยกไปจัดวางในแปลงปลูก",
-            video: "",
-          },
-          {
-            name: "การปลูก",
-            data:
-              "ให้รดน้ำบนวัสดุปลูกพอชุ่มวางเมล็ดพันธุ์ข้าวปลูกเป็นรูปสามเหลี่ยม 3 มุม 3 เมล็ดเมล็ดพันธุ์ข้าวแต่ละจุดอยู่ห่างกัน 4-5 นิ้ว ใช้นิ้วมือกดให้ลึกลงไป 1-2เซนติเมตร เกลี่ยวัสดุปลูกกลบเมล็ดพันธุ์ข้าว",
-            video: "",
-          },
-          {
-            name: "การให้น้ำ",
-            data:
-              "หลังจากปลูกข้าว 15 วัน ได้ใส่น้ำลงในภาชนะปลูกแต่พอชุ่มเพื่อเก็บรักษาความชื้นให้ต้นข้าวเจริญเติบโตไปกระทั่งอายุ 1 เดือนเมื่อต้นข้าวเข้าสู่เดือนที่ 2 ได้รักษาระดับน้ำให้สูง 5 เซนติเมตรเหนือระดับผิววัสดุปลูก เมื่อมีฝนตกลงมาก็ให้รักษาระดับน้ำนี้ไว้เช่นเดิมและเมื่อต้นข้าวแตกรวงข้าวแก่สุก ประมาณ 70%ของพื้นที่ได้ระบายน้ำออกจากถุงพลาสติกดำให้หมด",
-            video: "",
-          },
-          {
-            name: "การเก็บเกี่ยว",
-            data:
-              "ในการเก็บผลผลิตข้าวให้เก็บรวงข้าวโดยการเด็ดชุดแรกตรงป้องแรกของรวงข้าว ต่อ 1ต้นสามารถเก็บได้ 3 รอบโดยให้เก็บผลผลิตเมื่อข้าวเริ่มมีการตั้งท้องในปล้องที่สองของต้นข้าวหลังจากเก็บเกี่ยวรุ่นที่สามแล้วให้ทำการกดต้นข้าวฝังลงไปในดินในบ่อเหมือนการไถกลบตอซังข้าวและปล่อยน้ำเข้าบ่อให้ท่วมพอดีเป็นการปรับปรุงบำรุง ดินเพื่อเตรียมบ่อลงปลูกรอบต่อไป",
-            video: "",
-          },
-          {
-            name: "ผลผลิต",
-            data:
-              "ผลผลิตใน 1 บ่อต่อรอบ ที่เก็บจะได้ข้าวเปลือกบ่อละประมาณ 1.8-2 กิโลกรัม หากสีเป็นข้าวสารแล้วก็จะอยู่ประมาณ 1-1.5 กิโลกรัมหาดปลูก 30 บ่อ ก็จะได้ประมาณ 30-40 กิโลกรัม 1 ปี ปลูก 3 รอบก็จะได้ 90-120 กิโลกรัม โดยประมาณ",
-            video: "",
-          },
-        ],
-      },
-    ],
-  };
-  const [ricedata, setricedata] = React.useState({ dataarray: 0 });
-  React.useEffect(() => {
-    // return () => {
-    //     cleanup
-    // }
-  }, [ricedata]);
 
-  // const [listname, setlistname] = React.useState({indextoname: 0})
-  const showlist = (index) => {
-    console.log(document.getElementById(index).children.item(1).children.item(0).childElementCount);
-    for(var i=0;i<document.getElementById(index).children.item(1).children.item(0).childElementCount;i++){
-      document.getElementById(index+"-"+i).style.display ="block"
-    }
-    // document.getElementById(index).childElementCount
-    //
-  };
-  const Showyoutube = ({ value }) => {
+// db.collection("knowledgeStore").doc('94GD2QEWhgJR5ZIjWcyY').update({
+//   name: "การเพาะพันธุ์ข้าว การปลูกข้าวบนแปลงข้าวไร้นา",
+//   subtopic:[
+//     {name:"ปลูกข้าวในบ่อซีเมนต์",data:[
+//       {p_name:"การเตรียมต้นกล้าเพื่อปลูก",
+//       p_detail:"โดยการแช่เมล็ดพันธุ์ในน้ำ 1 คืน แล้วนำไปบ่มในกระสอบ 1 คืน แล้วนำเมล็ดข้าวที่บ่มแล้วประมาณ 2 กำมือ ไปหว่านในบ่อซีเมนต์ 1 วง ที่เตรียมดินและแช่น้ำมาอย่างน้อย 2 วัน หลังหว่านไปประมาณ 4 วัน เมล็ดข้าวจะเริ่มแตกใบ ให้ดูแลอย่าให้ขาดน้ำ จนต้นกล้าอายุได้ 20-25 วัน จึงถอนไปปักดำได้",
+//       image:[{ref:""}],
+//       video:[{link:"https://www.youtube.com/watch?v=Yq_77LWjJdE"}]
+//     }
+//     ]},
+//     {name:"ปลูกข้าวในถุงพลาสติกดำ",data:[
+//       {p_name:"การเตรียมต้นกล้าเพื่อปลูก",
+//       p_detail:"โดยการแช่เมล็ดพันธุ์ในน้ำ 1 คืน แล้วนำไปบ่มในกระสอบ 1 คืน แล้วนำเมล็ดข้าวที่บ่มแล้วประมาณ 2 กำมือ ไปหว่านในบ่อซีเมนต์ 1 วง ที่เตรียมดินและแช่น้ำมาอย่างน้อย 2 วัน หลังหว่านไปประมาณ 4 วัน เมล็ดข้าวจะเริ่มแตกใบ ให้ดูแลอย่าให้ขาดน้ำ จนต้นกล้าอายุได้ 20-25 วัน จึงถอนไปปักดำได้",
+//       image:[{ref:""}],
+//       video:[{link:"https://www.youtube.com/watch?v=Yq_77LWjJdE"}]
+//     }
+//     ]},
+//     {name:"ปลูกข้าวในยางรถยนต์",data:[
+//       {p_name:"การเตรียมต้นกล้าเพื่อปลูก",
+//       p_detail:"โดยการแช่เมล็ดพันธุ์ในน้ำ 1 คืน แล้วนำไปบ่มในกระสอบ 1 คืน แล้วนำเมล็ดข้าวที่บ่มแล้วประมาณ 2 กำมือ ไปหว่านในบ่อซีเมนต์ 1 วง ที่เตรียมดินและแช่น้ำมาอย่างน้อย 2 วัน หลังหว่านไปประมาณ 4 วัน เมล็ดข้าวจะเริ่มแตกใบ ให้ดูแลอย่าให้ขาดน้ำ จนต้นกล้าอายุได้ 20-25 วัน จึงถอนไปปักดำได้",
+//       image:[{ref:""}],
+//       video:[{link:"https://www.youtube.com/watch?v=Yq_77LWjJdE"}]
+//     }
+//     ]}
+//   ]
+// })
+
+function useKnowledges() {
+  const [knows, setKnows] = useState([]);
+  let subtopicdb = db;
+  useEffect(() => {
+    db.collection("knowledgeStore").onSnapshot((snapshot) => {
+      // debugger
+      const newknows = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setKnows(newknows);
+      // console.log(newknows)
+    });
+  }, []);
+
+  return knows;
+}
+
+function toggle(id){
+  var e = document.getElementById(id);
+      if ( e.style.display == 'block' )
+          e.style.display = 'none';
+      else
+          e.style.display = 'block';
+ }
+ const Showyoutube = ({ value }) => {
     if (value !== "") {
       return (
         <iframe
@@ -158,31 +68,69 @@ export default function Mainpage() {
     }
     return null;
   };
+
+
+function Mainpage() {
+  const knows = useKnowledges();
+  function addcontent(subdata){
+    
+      var text = <Showyoutube value='Yq_77LWjJdE' />
+      var node = document.createElement("div")
+      var node1 = document.createElement("h2")
+      var node2 = document.createElement("h3")
+      var node3 = document.createElement("p")
+      var video = document.createElement("div")
+      var ifrm = document.createElement("iframe")
+      ifrm.setAttribute("src", "https://www.youtube.com/embed/"+'Yq_77LWjJdE');
+        ifrm.style.width = "720px";
+        ifrm.style.height = "480px";
+      if ( document.getElementsByClassName("content").item(0).childElementCount != 0) {
+        document.getElementsByClassName("content").item(0).removeChild(document.getElementsByClassName("content").item(0).childNodes[0])
+      }
+      // document.getElementsByClassName("content").item(0).childElementCount
+      node.appendChild(node1);
+      node.appendChild(document.createElement("div"));
+      node.appendChild(node2);
+      node.appendChild(node3);
+      video.className = 'videoframe'
+      node.appendChild(video)
+      var textnode = document.createTextNode(subdata.name);         // Create a text node
+       node1.appendChild(document.createTextNode(subdata.name));
+       subdata.data.map((d)=>node2.appendChild(document.createTextNode(d.p_name))
+       +node3.appendChild(document.createTextNode(d.p_detail))
+       +video.appendChild(ifrm)
+       )
+      //  node2.appendChild(subdata.name);                              // Append the text to <li>
+      document.getElementsByClassName("content").item(0).appendChild(node);
+
+   }
+
   return (
     <div className="Mainpage-container">
       <section className="content">
-        <div>
-          <h2>{datarice.data[ricedata.dataarray].name}</h2>
-        </div>
-        <div>
-          {datarice.data[ricedata.dataarray].subdata.map((item) => (
-            <div>
-              <h3>{item.name}</h3>
-              <p>{item.data}</p>
-              <div className="videoframe"><Showyoutube value={item.video} /></div>
-            </div>
-          ))}
-        </div>
-        <div>
-          <h5>{datarice.data[ricedata.dataarray].credit}</h5>
-        </div>
+
       </section>
 
       <section className="sidemenu">
         <div className="box-container">
-          <div className="headsidemenu"><p>หัวข้อ</p></div>
+          <div className="headsidemenu">
+            <p>หัวข้อ</p>
+          </div>
           <ul className="ckeck-list">
-            {sidemenulist.map((item) =>
+            {knows.map((know) => (
+              <li key={know.id} >
+                <a onClick={()=>toggle(know.id)}>{know.name}</a>
+                <div id={know.id} className="subtopic-container">
+                  <ul>
+                    {know.subtopic.map((sub, index) => (
+                      
+                      <li key={index}><a onClick={()=> addcontent(sub)}>{sub.name}</a></li>
+                    ))}
+                  </ul>
+                </div>
+              </li>
+            ))}
+            {/* {sidemenulist.map((item) =>
               item.topic.map((item, index1) => (
                 <li id={index1} onClick={() => showlist(index1.toString())}>
                   <a>{item.name}</a>
@@ -202,11 +150,15 @@ export default function Mainpage() {
                   </div>
                 </li>
               ))
-            )}
+            )} */}
           </ul>
         </div>
       </section>
     </div>
   );
 }
+
+export default Mainpage;
+//  };
+
 // const Headline = ({ value }) => <h1>{value}</h1>;

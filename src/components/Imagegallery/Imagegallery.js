@@ -35,6 +35,7 @@ export default function Imagegallery() {
       ];
     return (
         <div className="gallery">
+            <h2>ssss</h2>
             <ResponsiveGallery images={images}/>
         </div>
     )

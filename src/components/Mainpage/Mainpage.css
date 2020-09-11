@@ -6,6 +6,9 @@
   grid-template-columns: 0.7fr 2.3fr;
   grid-template-rows: 3fr;
 }
+.subtopic-container{
+  display: none;
+}
 .content {
   grid-column-start: 2;
   grid-column-end: 3;
