@@ -9,6 +9,7 @@
 .subtopic-container{
   display: none;
 }
+
 .content {
   grid-column-start: 2;
   grid-column-end: 3;
@@ -31,6 +32,9 @@
   
 }
 
+/* .sidemenu .box-container .check-list .subtopic-container{
+  display: none;
+} */
 .sidemenu ul {
   list-style: none;
   /* text-align: center; */
@@ -47,7 +51,7 @@
   display: block;
   /* padding: 20px; */
   /* font-size: 1.5em; */
-  text-decoration: none;
+  /* text-decoration: none; */
   color: rgb(0, 0, 0);
   /* font-weight: 800; */
   text-transform: uppercase;
@@ -129,13 +133,23 @@
 .content p{
   margin-bottom: 3em;
   margin-left: 3em;
+  margin-right: 5em;
 }
 .content .videoframe{
   /* margin-left: 5em; */
   margin-bottom: 3em;
   text-align: center;
 }
-
+.content .imageframe{
+  margin-bottom: 3em;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+}
+.content .imageframe img{
+  padding-left: 15px;
+  padding-right: 15px;
+}
 /*sidemenu*/
 .sidemenu .box-container{
   /* padding-top: 1px; */
@@ -143,4 +157,5 @@
   border-radius: 5px;
   box-shadow: 3px 3px 5px 3px #ccc;
   background-color: #fff;
+  /* display: none; */
 }

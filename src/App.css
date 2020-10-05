@@ -47,3 +47,10 @@ main {
   grid-column-end: 5;
   background-color: #82440b;
 } */
+
+@media screen and (max-width: 480px) {
+  .grid-container .Logo,
+  .grid-container header {
+    display: none;
+  }
+}

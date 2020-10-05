@@ -7,6 +7,7 @@ import Mainpage from "./components/Mainpage/Mainpage";
 import Imagegallery from "./components/Imagegallery/Imagegallery";
 import intropage from "./components/Intropage/intropage";
 import Rmultlogo from "./components/Logo/Rmultlogo";
+import Admin from "./components/adminpage/Admin";
 // import Gallery from "./components/pic/pic";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/intro" component={intropage} />
           <Route path="/Mainpage" component={Mainpage} />
           <Route path="/image" component={Imagegallery} />
+          <Route path="/admin" component={Admin} />
 
       </main>
       {/* <footer>footer</footer> */}

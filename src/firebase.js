@@ -4,6 +4,7 @@ import * as firebase from 'firebase/app';
 
 // Add the Firebase products that you want to use
 import 'firebase/firestore';
+import 'firebase/storage';
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
@@ -19,5 +20,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
-export const db = firebase.firestore();
+const db = firebase.firestore()
+const store = firebase.storage()
+// 
+export {db,store}
